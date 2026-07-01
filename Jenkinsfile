@@ -1,51 +1,71 @@
 pipeline {
+
     agent any
+
+    environment {
+
+        DEPLOY_DIR = "d:\\testapplication"
+
+    }
 
     stages {
 
         stage('Checkout') {
+
             steps {
+
                 checkout scm
+
             }
+
         }
 
-        stage('Node Version') {
-            steps {
-                bat 'node -v'
-                bat 'npm -v'
-            }
-        }
+        stage('Install') {
 
-        stage('Install Dependencies') {
             steps {
+
                 bat 'npm install'
+
             }
+
         }
 
-        stage('Run Tests') {
+        stage('Test') {
+
             steps {
+
                 bat 'npm test'
+
             }
+
         }
 
-        stage('Run Application') {
+        stage('Deploy') {
+
             steps {
-                bat 'npm start'
+
+                bat """
+                if not exist "%DEPLOY_DIR%" mkdir "%DEPLOY_DIR%"
+                xcopy /E /Y * "%DEPLOY_DIR%\\"
+                """
             }
+
         }
+
+        stage('Start PM2') {
+
+            steps {
+
+                bat """
+                cd %DEPLOY_DIR%
+                pm2 delete node-web-app || exit /b 0
+                pm2 start ecosystem.config.js
+                pm2 save
+                """
+            }
+
+        }
+
     }
 
-    post {
-        always {
-            echo 'Pipeline Finished'
-        }
-
-        success {
-            echo 'Build Successful'
-        }
-
-        failure {
-            echo 'Build Failed'
-        }
-    }
 }
