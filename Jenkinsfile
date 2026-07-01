@@ -53,18 +53,19 @@ pipeline {
         }
 
         stage('Start PM2') {
+    steps {
+        bat '''
+        cd /d D:\\testapplication
 
-            steps {
+        pm2 stop node-web-app || exit /b 0
+        pm2 delete node-web-app || exit /b 0
 
-                bat """
-                cd %DEPLOY_DIR%
-                pm2 delete || exit /b 0
-                pm2 start ecosystem.config.js
-                pm2 save
-                """
-            }
+        pm2 start app.js --name node-web-app
 
-        }
+        pm2 list
+        '''
+    }
+}
 
     }
 
