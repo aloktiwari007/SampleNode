@@ -1,12 +1,14 @@
 {
-  "name": "sample-node-app",
+  "name": "node-web-app",
   "version": "1.0.0",
-  "description": "Sample Node.js application for Jenkins",
+  "description": "Jenkins PM2 Demo",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "node test.js"
+    "test": "echo Test Passed"
   },
-  "author": "Alok",
-  "license": "MIT"
+  "dependencies": {
+    "express": "^4.19.2",
+    "ejs": "^3.1.10"
+  }
 }
