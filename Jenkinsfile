@@ -54,16 +54,18 @@ pipeline {
 
         stage('Start PM2') {
     steps {
-        bat '''
-        cd /d D:\\testapplication
+       bat '''
+cd /d D:\\testapplication
 
-        pm2 stop node-web-app || exit /b 0
-        pm2 delete node-web-app || exit /b 0
+cmd /c "pm2 stop node-web-app"
+cmd /c "pm2 delete node-web-app"
 
-        pm2 start app.js --name node-web-app
+pm2 start app.js --name node-web-app
 
-        pm2 list
-        '''
+pm2 save
+
+pm2 list
+'''
     }
 }
 
