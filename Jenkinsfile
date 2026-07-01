@@ -58,7 +58,7 @@ pipeline {
 
                 bat """
                 cd %DEPLOY_DIR%
-                pm2 delete node-web-app || exit /b 0
+                pm2 delete || exit /b 0
                 pm2 start ecosystem.config.js
                 pm2 save
                 """
