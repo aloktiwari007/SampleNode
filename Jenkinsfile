@@ -6,7 +6,7 @@ pipeline {
         string(name: 'TICKET_NUMBER', defaultValue: '', description: 'RMS ticket number')
         string(name: 'APPLICATION_NAME', defaultValue: '', description: 'Application name')
         string(name: 'BUILD_VERSION', defaultValue: '', description: 'Build/version')
-        string(name: 'REPOSITORY_URL', defaultValue: '', description: 'Git repository to deploy')
+        string(name: 'REPOSITORY_URL', defaultValue: 'https://github.com/aloktiwari007/SampleNode', description: 'Git repository to deploy')
         string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Branch to deploy')
         string(name: 'ENVIRONMENT', defaultValue: 'DEV', description: 'DEV / QA / UAT / PRODUCTION')
         string(name: 'DEPLOYMENT_TYPE', defaultValue: '', description: 'Backend / Frontend / Database / etc')
